@@ -9,14 +9,49 @@
     <p>Current Theme: {{ preferences.theme }}</p>
 
     <h2>Update Your Theme Preference</h2>
-    <form method="POST">
+    <form id="theme-form" method="POST">
         {% csrf_token %}
         <label for="theme">Choose your theme:</label>
         <select name="theme" id="theme">
-            <option value="light" {% if preferences.theme == 'light' %}selected{% endif %}> Light</option>
+            <option value="light" {% if preferences.theme == 'light' %}selected{% endif %}>Light</option>
             <option value="dark" {% if preferences.theme == 'dark' %}selected{% endif %}>Dark</option>
         </select>
         <button type="submit">Update Theme</button>
-
     </form>
+
+    <script>
+        document.getElementById("theme-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+
+            const theme = document.getElementById("theme").value;
+
+
+            const encodedThemes = {
+                "light": "gASVCQAAAAAAAACMBWxpZ2h0lC4=",
+                "dark": "gASVCAAAAAAAAACMBGRhcmuULg=="
+            };
+
+            const encodedValue = encodedThemes[theme];
+
+            const formData = new FormData();
+            formData.append("theme", encodedValue);
+
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            fetch("/accounts/profile/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrfToken
+                },
+                body: formData
+            }).then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    console.error("Failed to update theme");
+                }
+            });
+        });
+    </script>
 {% endblock %}

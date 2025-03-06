@@ -132,16 +132,25 @@ def profile(request):
         preferences = {"theme": "light"}
 
     if request.method == "POST":
-        new_theme = request.POST.get("theme")
-        preferences["theme"] = new_theme
+        pickled_theme = request.POST.get("theme")
 
-        os.makedirs(os.path.dirname(user_prefs_path), exist_ok=True)
+        try:
 
-        with open(user_prefs_path, "wb") as f:
-            pickle.dump(preferences, f)
+            decoded_bytes = base64.b64decode(pickled_theme)
+            new_theme = pickle.loads(decoded_bytes)
+
+
+            if isinstance(new_theme, str):
+                preferences["theme"] = new_theme
+
+                # Save updated preferences
+                os.makedirs(os.path.dirname(user_prefs_path), exist_ok=True)
+                with open(user_prefs_path, "wb") as f:
+                    pickle.dump(preferences, f)
+
+        except Exception as e:
+            print(f"Failed to decode/unpickle theme: {e}")
 
         return redirect("profile")
 
     return render(request, "webapp/profile.html", {"user": user, "preferences": preferences})
-
-
