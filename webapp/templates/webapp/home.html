@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% extends "webapp/base.html" %}
+
+{% block content %}
+    <div class="home-container">
+        <div class="welcome-message">
+            <h1>Welcome to Cognitive Data Converter</h1>
+            <p>Download our software below, or register to become a developer!</p>
+        </div>
+        <div class="download-section">
+            <a href="{% url 'request_download' %}">
+                <button class="download-btn">Download</button>
+            </a>
+        </div>
+        <div class="versions-section">
+            <h2>Updates</h2>
+            <ul class="versions-list">
+                {% for version in versions %}
+                    <li class="version-item">
+                        <div class="version-header">
+                            <p class="version-number">Version {{ version.version_number }}</p>
+                            <p class="release-date">Released on: {{ version.release_date|date:"F j, Y" }}</p>
+                        </div>
+                        <p class="version-description">{{ version.description }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+
+    </div>
+{% endblock %}

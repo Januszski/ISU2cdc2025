@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+{% extends "webapp/base.html" %}
+
+{% block content %}
+<html>
+<head>
+    <title>Signup</title>
+</head>
+<body>
+    <h1>Signup Page</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Enter your email" required>
+        <button type="submit">Sign Up</button>
+    </form>
+</body>
+</html>
+
+{% endblock %}
+

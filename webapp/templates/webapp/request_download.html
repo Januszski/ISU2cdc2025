@@ -1,0 +1,12 @@
+{% extends "webapp/base.html" %}
+
+{% block content %}
+    <div class="form-container">
+        <form method="post" class="email-form">
+            {% csrf_token %}
+            <h2>Enter your email to download the software</h2>
+            <input type="email" name="email" required placeholder="youremail@example.com">
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+{% endblock %}

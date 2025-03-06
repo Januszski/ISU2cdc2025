@@ -1,0 +1,234 @@
+{% block content %}
+<div class="admin-login-wrapper">
+    <div class="admin-login-container">
+        <div class="admin-login-header">
+            <div class="admin-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+            </div>
+            <h2>Admin Portal</h2>
+            <p class="admin-subtitle">Secure access to management tools</p>
+        </div>
+        
+        <div class="admin-login-form">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-fields">
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="admin-login-button">
+                    <span>Authenticate</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                        <polyline points="10 17 15 12 10 7"></polyline>
+                        <line x1="15" y1="12" x2="3" y2="12"></line>
+                    </svg>
+                </button>
+            </form>
+        </div>
+        
+        <div class="admin-login-footer">
+            <div class="security-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span>Secure</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary-color: #2563eb;
+        --primary-hover: #1d4ed8;
+        --bg-color: #f0f4f8;
+        --card-bg: #ffffff;
+        --text-color: #1e293b;
+        --text-secondary: #64748b;
+        --border-color: #e2e8f0;
+        --input-bg: #f8fafc;
+        --input-border: #cbd5e1;
+        --error-color: #ef4444;
+        --success-color: #10b981;
+    }
+
+    .admin-login-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: var(--bg-color);
+        background-image: 
+            linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
+        background-size: 20px 20px;
+        padding: 20px;
+    }
+
+    .admin-login-container {
+        width: 100%;
+        max-width: 420px;
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+    }
+
+    .admin-login-header {
+        padding: 2rem 2rem 1.5rem;
+        text-align: center;
+    }
+
+    .admin-icon {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 1rem;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .admin-icon svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .admin-login-header h2 {
+        margin: 0 0 0.5rem;
+        font-size: 1.5rem;
+        color: var(--text-color);
+        font-weight: 600;
+    }
+
+    .admin-subtitle {
+        margin: 0;
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+    }
+
+    .admin-login-form {
+        padding: 0 2rem 1.5rem;
+    }
+
+    .form-fields {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Style Django's form.as_p output */
+    .form-fields p {
+        margin-bottom: 1.25rem;
+        position: relative;
+    }
+
+    .form-fields label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-color);
+    }
+
+    .form-fields input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--input-border);
+        border-radius: 6px;
+        background-color: var(--input-bg);
+        font-size: 1rem;
+        transition: all 0.2s ease;
+    }
+
+    .form-fields input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+
+    /* Style Django error messages */
+    .form-fields ul.errorlist {
+        padding-left: 0;
+        list-style: none;
+        color: var(--error-color);
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+        margin-bottom: 0;
+    }
+
+    .admin-login-button {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .admin-login-button:hover {
+        background-color: var(--primary-hover);
+    }
+
+    .admin-login-button svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .admin-login-footer {
+        padding: 1rem 2rem;
+        border-top: 1px solid var(--border-color);
+        text-align: center;
+    }
+
+    .security-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        background-color: rgba(16, 185, 129, 0.1);
+        color: var(--success-color);
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .security-badge svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+        .admin-login-wrapper {
+            padding: 1rem;
+            background-image: none;
+        }
+        
+        .admin-login-container {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .admin-login-header,
+        .admin-login-form,
+        .admin-login-footer {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+    }
+</style>
+{% endblock %}

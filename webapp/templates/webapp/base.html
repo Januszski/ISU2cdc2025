@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Django App{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<style>
+        /* light */
+        body[data-theme="light"] {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        body[data-theme="light"] h1, body[data-theme="light"] h2, body[data-theme="light"] p, body[data-theme="light"] label {
+            color: #000000;
+        }
+        body[data-theme="light"] select, body[data-theme="light"] button {
+            background-color: #ddd;
+            color: #000;
+            border: 1px solid #aaa;
+        }
+        body[data-theme="light"] button:hover {
+            background-color: #bbb;
+        }
+
+
+
+
+        /* dark */
+        body[data-theme="dark"] {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        body[data-theme="dark"] h1, body[data-theme="dark"] h2, body[data-theme="dark"] p, body[data-theme="dark"] label {
+            color: #ffffff;
+        }
+        body[data-theme="dark"] select, body[data-theme="dark"] button, body[data-theme="dark"] .versions-list li, body[data-theme="dark"] .email-form {
+            background-color: #333;
+            color: #ffffff;
+            border: 1px solid #666;
+        }
+        body[data-theme="dark"] button:hover {
+            background-color: #444;
+        }
+
+
+
+
+
+.home-container {
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.welcome-message {
+    margin-bottom: 40px;
+      width:100%;
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.welcome-message h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.welcome-message p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.versions-section {
+    margin-bottom: 25px;
+}
+
+.versions-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+
+.versions-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.version-item {
+    background-color: #f9f9f9;
+    padding: 13px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.version-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.version-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.release-date {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.version-description {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #555;
+}
+
+
+body.dark-theme .version-item {
+    background-color: #2d2d2d;
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-theme .version-number {
+    color: #fff;
+}
+
+body.dark-theme .release-date {
+    color: #bbb;
+}
+
+body.dark-theme .version-description {
+    color: #ddd;
+}
+
+body.dark-theme .version-item:hover {
+    background-color: #3a3a3a;
+}
+
+.download-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  width:100%;
+  display: flex;
+  justify-content: center;
+}
+
+.download-btn {
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.download-btn:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+
+
+
+    /*-----------------*/
+
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Full viewport height */
+}
+
+.email-form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.email-form h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.email-form label {
+    font-size: 1.1rem;
+    color: #555;
+    display: block;
+    margin: 10px 0;
+}
+
+.email-form input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.email-form input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.submit-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+.submit-btn:active {
+    background-color: #003f8a;
+}
+
+
+
+
+
+
+
+
+    </style>
+</head>
+
+<body data-theme="{{ preferences.theme }}">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">CDC</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <form id="logout-form" method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link nav-link">Logout</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>
+
+

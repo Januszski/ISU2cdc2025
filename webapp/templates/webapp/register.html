@@ -1,0 +1,187 @@
+{% extends "webapp/base.html" %}
+
+{% block content %}
+<div class="register-container">
+    <div class="register-card">
+        <div class="register-header">
+            <h1>Create Account</h1>
+            <p class="register-subtitle">Join our developer community</p>
+        </div>
+
+        <form method="post" class="register-form">
+            {% csrf_token %}
+            <div class="form-fields">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="register-button">Register</button>
+        </form>
+
+        <div class="register-footer">
+            <p>Already have an account? <a href="/login" class="login-link">Login</a></p>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary-color: #3b82f6;
+        --primary-hover: #2563eb;
+        --bg-color: #ffffff;
+        --card-bg: #ffffff;
+        --text-color: #1f2937;
+        --text-secondary: #6b7280;
+        --border-color: #e5e7eb;
+        --input-bg: #f3f4f6;
+        --error-color: #ef4444;
+    }
+
+    .register-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        padding: 2rem;
+        background-color: #ffffff;
+    }
+
+    .register-card {
+        width: 100%;
+        max-width: 480px; /* Slightly wider than login for more fields */
+        background-color: var(--card-bg);
+        border-radius: 8px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+    }
+
+    .register-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--border-color);
+        text-align: center;
+    }
+
+    .register-header h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: var(--text-color);
+        font-weight: 600;
+    }
+
+    .register-subtitle {
+        margin: 0.5rem 0 0;
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+    }
+
+    .register-form {
+        padding: 1.5rem;
+    }
+
+    .form-fields {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Style Django's form.as_p output */
+    .form-fields p {
+        margin-bottom: 1rem;
+    }
+
+    .form-fields label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-color);
+    }
+
+    .form-fields input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        background-color: var(--input-bg);
+        font-size: 1rem;
+        transition: border-color 0.15s ease-in-out;
+    }
+
+    .form-fields input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+    }
+
+    /* Style Django's help text */
+    .form-fields .helptext {
+        display: block;
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        margin-top: 0.25rem;
+    }
+
+    /* Style Django error messages */
+    .form-fields ul.errorlist {
+        padding-left: 0;
+        list-style: none;
+        color: var(--error-color);
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+        margin-bottom: 0;
+    }
+
+    .register-button {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.15s ease-in-out;
+    }
+
+    .register-button:hover {
+        background-color: var(--primary-hover);
+    }
+
+    .register-footer {
+        padding: 1rem 1.5rem;
+        text-align: center;
+        border-top: 1px solid var(--border-color);
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+    }
+
+    .login-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .login-link:hover {
+        text-decoration: underline;
+    }
+
+    /* Additional styling for checkboxes that might be in registration forms */
+    .form-fields input[type="checkbox"] {
+        width: auto;
+        margin-right: 0.5rem;
+    }
+
+    .form-fields label[for*="checkbox"] {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+        .register-container {
+            padding: 1rem;
+        }
+
+        .register-card {
+            box-shadow: none;
+        }
+    }
+</style>
+{% endblock %}

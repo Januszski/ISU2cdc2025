@@ -1,0 +1,40 @@
+{% extends "webapp/base.html" %}
+
+{% block content %}
+<html>
+<head>
+    <title>Select File for Download</title>
+    <script>
+        function toggleDownloadButton() {
+            const submitButton = document.getElementById("submit-button");
+            const selectedFile = document.querySelector('input[name="file_name"]:checked');
+            submitButton.disabled = !selectedFile; // Enable if a file is selected
+        }
+    </script>
+    <style>  .file-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Download Below</h1>
+    <p>Select a download from the list below:</p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <ul class="file-list">
+        {% for file in files %}
+            <li>
+                <input type="radio" name="file_name" value="{{ file }}" id="{{ file }}" onchange="toggleDownloadButton()">
+                <label for="{{ file }}">{{ file }}</label>
+            </li>
+        {% endfor %}
+        </ul>
+
+        <button type="submit" id="submit-button" disabled>Download File</button>
+    </form>
+</body>
+</html>
+{% endblock %}

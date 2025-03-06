@@ -1,0 +1,22 @@
+{% extends "webapp/base.html" %}
+
+{% block content %}
+    <h1>Welcome, {{ user.username }}!</h1>
+    <p>Email: {{ user.email }}</p>
+    <p>First Name: {{ user.first_name }}</p>
+    <p>Last Name: {{ user.last_name }}</p>
+
+    <p>Current Theme: {{ preferences.theme }}</p>
+
+    <h2>Update Your Theme Preference</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="theme">Choose your theme:</label>
+        <select name="theme" id="theme">
+            <option value="light" {% if preferences.theme == 'light' %}selected{% endif %}> Light</option>
+            <option value="dark" {% if preferences.theme == 'dark' %}selected{% endif %}>Dark</option>
+        </select>
+        <button type="submit">Update Theme</button>
+
+    </form>
+{% endblock %}
